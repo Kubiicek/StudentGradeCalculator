@@ -1,9 +1,12 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student {
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String name;
     private List<Discipline> disciplines;
 
@@ -26,13 +29,9 @@ public class Student {
 
     public String getStatus() {
         double average = calculateAverage();
-        if (average >= 7.0) {
-            return "✅ Approved";
-        } else if (average >= 5.0) {
-            return "⚠️ Recovery";
-        } else {
-            return "❌ Failed";
-        }
+        if (average >= 7.0) return "✅ Approved";
+        else if (average >= 5.0) return "⚠️ Recovery";
+        else return "❌ Failed";
     }
 
     public void printReport() {
@@ -40,8 +39,7 @@ public class Student {
         for (Discipline d : disciplines) {
             System.out.println(d);
         }
-        double average = calculateAverage();
-        System.out.printf("\nAverage: %.2f\n", average);
+        System.out.printf("\nAverage: %.2f\n", calculateAverage());
         System.out.println("Status: " + getStatus());
     }
 }

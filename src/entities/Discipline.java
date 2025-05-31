@@ -1,6 +1,10 @@
 package entities;
 
-public class Discipline {
+import java.io.Serializable;
+
+public class Discipline implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String name;
     private double grade;
 
