@@ -8,7 +8,7 @@ import java.util.List;
 
 public class StudentFileManager {
 
-    private static final String FILE_NAME = "students.dat";
+    private static final String FILE_NAME = "studentsfile.dat";
 
     public static void saveStudents(List<Student> students) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
