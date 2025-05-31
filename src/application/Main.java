@@ -1,7 +1,6 @@
 package application;
 
-import java.util.HashMap;
-import java.util.Map;
+import entities.Student;
 import java.util.Scanner;
 
 public class Main {
@@ -9,38 +8,32 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         System.out.print("Enter the student's name: ");
-        String name = input.nextLine();
+        String studentName = input.nextLine();
+
+        Student student = new Student(studentName);
 
         System.out.print("How many subjects? ");
-        int subjects = input.nextInt();
+        int subjectCount = input.nextInt();
         input.nextLine();
 
-        Map<String, Double> grades = new HashMap<>();
+        for (int i = 0; i < subjectCount; i++) {
+            System.out.printf("Subject %d name: ", i + 1);
+            String subjectName = input.nextLine();
 
-        for (int i = 0; i < subjects; i++) {
-            System.out.print("Subject " + (i+1) + " name: ");
-            String discplineName = input.nextLine();
-            System.out.print("Grade: ");
-            Double disciplineGrade = input.nextDouble();
-            input.nextLine();
+            double grade;
+            do {
+                System.out.print("Grade (0 to 10): ");
+                grade = input.nextDouble();
+                input.nextLine();
+                if (grade < 0 || grade > 10) {
+                    System.out.println("Invalid grade. Try again.");
+                }
+            } while (grade < 0 || grade > 10);
 
-            grades.put(discplineName, disciplineGrade);
+            student.addDiscipline(subjectName, grade);
         }
 
-        double sum = 0;
-        for (double nota : grades.values()) {
-            sum += nota;
-        }
-        double average = sum / grades.size();
-
-        System.out.printf("\n%s's average: %.2f\n", name, average);
-
-        if (average < 7) {
-            System.out.println("Status: Failed ❌");
-        } else {
-            System.out.println("Status: Approved ✅");
-        }
-
+        student.printReport();
         input.close();
     }
 }
